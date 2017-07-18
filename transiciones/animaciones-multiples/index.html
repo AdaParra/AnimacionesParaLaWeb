@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Animaciones Multiples</title>
+	<link rel="stylesheet" href="">
+	<style>
+		body{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			color: white;
+			font-family: Arial;
+		}
+		.container{
+			width: 100%;
+			border: 1px solid red;
+		}
+
+		.cuadrado{
+			width: 200px;
+			height: 200px;
+			background: #7dc900;
+			border-radius: 50%;
+			display: flex;
+			/* align-items: center; */
+			align-items: flex-start;
+			justify-content: center;
+			margin: 20px;
+			transition: .3s;
+			position: relative;
+			animation-name: cuadrado, rebote; /*1. darle nombre */
+			animation-duration: 3s, .3s; /*2. indicar un tiempo */
+			/* para que tenga un mejor efecto hacemos */
+			animation-delay: 1s; /* Util por si queremos que el sitio web 
+			carge primero y luego nuesta animacion */
+			animation-iteration-count: infinite, 20; /* el numero de veces que 
+			quiero que se repita mi animacion, tambien le podemos poner que 
+			sea infinita */
+			/* animation-timing-function: ease; */ /* cambiar el suavisado de la animacion */
+			/* Podemos configurar el suavisado de nuestra animacion el cual por 
+			defecto esta en ease */
+			/* animation-timing-function: ease-in; */
+			/* ease-in: acelacion mas suave al inicio, mas lento */
+			/* animation-timing-function: ease-out; */
+			/* ease-out: la animacion seria mas lenta al momento de finalizar */
+			/* animation-timing-function: ease-in-out; */
+			/* ease-in-out: la animacion seria lento tanto al inicio como al final; */
+			/* animation-timing-function: linear; */
+			/* linear: la animacion ira a un ritmo constante */
+
+			/* podemos configurar nuestra animacion por pasos */
+			/* animation-timing-function: steps(60); */
+			/* steps(60): pasos por segundo; */
+
+			/* animation-timing-function: cubic-bezier(1,1,1,1); */
+			/* 1,1,1,1: nuestra animacion es linear; */
+			/* 1,-1,1,-1: la animacion se sale y rebota; */
+			/* para personalizar la curva de bezier cubic-bezier.com pagina web */
+
+			/* animation-timing-function: cubic-bezier(1, 1, 1, 1); */ /* animacion lineal */
+			
+			/* para definir desde donde va iniciar nuestra animacion */
+			/* animation-direction: reverse; */
+			/* tambien puede ser alternado */
+			animation-direction: alternate;
+
+			animation-timing-function: linear, ease-in-out;
+
+			/* Definir el valor real que tendra la animacion cuando acabe la animacion*/
+			/* animation-fill-mode: forwards; */
+			/* Es lo mismo que colocar opacity: 0 */ 
+			/* Configurar el estado de la animacion */
+/* 			animation-play-state: running;
+animation-play-state: paused; */
+
+		}
+
+		/* 3. configuracion de la animacion */
+		
+		@keyframes cuadrado{
+			/* Que voy hacer en el tiempo estimado */
+
+			0%{
+				left: 0;
+				/* opacity: 1; */
+			}
+			100%{
+				left: calc(100% - 240px);
+				/* opacity: 0; */
+			}
+		}
+
+		@keyframes rebote{
+			
+			from{ /* 0% */
+				transform: translateY(0);
+
+			}to{ /* 100% */
+				transform: translateY(100px) scale(1, .8);
+				
+			}
+		}
+
+		@keyframes escalera{
+			form{
+				transform: translateY(0);
+
+			}to{
+				transform: translateY(500px);
+			}
+
+		}
+
+
+		.container:hover .cuadrado{
+			animation-play-state: running;
+			animation-play-state: paused;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="container">
+		<div class="cuadrado" id="cuadrado">
+			Hola Mundo
+
+		</div>
+	</div>
+	
+	<script>
+		const $cuadrado = document.getElementById('cuadrado');
+/*		$cuadrado.addEventListener('animationstart', (event) => {*/
+/*		$cuadrado.addEventListener('animationiteration', (event) => {*/				
+		$cuadrado.addEventListener('animationend', (event) => {
+			/*console.log(event.animationName)*/
+			if (event.animationName === 'rebote') {
+				$cuadrado.style.animationName = 'cuadrado escalera'
+				$cuadrado.style.animationDuration = '3s'
+				}
+			});
+	</script>
+</body>
+</html>

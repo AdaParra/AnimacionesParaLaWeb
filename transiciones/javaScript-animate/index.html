@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>JavaScript element.animate</title>
+	<link rel="stylesheet" href="">
+	
+	<style>
+		body{
+			display: flex;
+			height: 100vh;
+			align-items: center;
+			justify-content: center;
+		}
+		.container{
+			width: 600px;
+			border: 1px solid red;
+		}
+		.pelota{
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+			background: red;
+		}
+		.btn{
+			text-align: center;
+			background: #7dc800;
+			padding: .6em .8em .8em;
+			border: none;
+			color: white;
+			margin: 5px;
+			border-radius: 5px;
+			cursor: pointer;
+			box-shadow: inset 0-.2em rgba(0,0,0, .2);
+			outline: 0;
+			transition: .2s;
+			will-change: transform;
+		}
+		.btn:active{
+			transform: scale(.9);
+		}
+	</style>
+</head>
+<body>
+
+	<div class="container">
+		<div class="pelota" id="pelota"></div>
+		<div class="buttons">
+			<button class="btn" id="play">Play</button>
+			<button class="btn" id="pause">Pause</button>
+			<button class="btn" id="stop">Stop</button>
+			<button class="btn" id="reverse">Reverse</button>
+		</div>
+	</div>
+
+	<script>
+		const $pelota = document.getElementById('pelota');
+		//Sintaxis
+		//element.animate(keyframes = [], option = {})
+		const animation = $pelota.animate([ 
+			//from
+			{
+				transform: 'translateX(0)' 
+			},
+			//to
+			{
+				transform: 'translateX(500px)'
+			}
+		],
+		{
+			duration: 1000,
+			delay: 1000,
+			direction: 'normal',
+			easing: 'linear',
+			iterations: Infinity,
+			//como queremos que finalice la animacion
+			fill: 'forwards',
+			//Si se quiere que la animacion incie en cierto espacio de la animacion, que sea controlable valores: 0-1
+			iterationStart: .5,
+			// tiempo en milisegundo que nosotros queremos que el elemento espere cuando se acabe la animacion
+			//endDelay: 5000
+		})
+
+		const $playButton = document.getElementById('play');
+		const $pauseButton = document.getElementById('pause');
+		const $stopButton = document.getElementById('stop');
+		const $reverseButton = document.getElementById('reverse');
+
+		$playButton.addEventListener('click', (event) => {
+			animation.play();
+		});
+
+		$pauseButton.addEventListener('click', (event) => {
+			animation.pause();
+
+		});
+
+		$stopButton.addEventListener('click', (event) => {
+			animation.cancel();
+		});
+
+		$reverseButton.addEventListener('click', (event) => {
+			animation.reverse();
+		});
+
+
+	</script>
+	
+</body>
+</html>
